@@ -1,0 +1,19 @@
+{
+  "name": "openlayertemplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "parcel index.html",
+    "build": "parcel build --public-url . index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ol": "^6.9.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.1"
+  }
+}

@@ -1,0 +1,130 @@
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+html,
+body,
+#map {
+    height: 100%;
+    font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.lorem {
+    font-style: italic;
+    color: #AAA;
+}
+
+#map{
+    width: 100%;
+}
+
+.container {
+    height:100vh;
+    display: grid;
+    grid-template-columns: 0.2fr 1.8fr;
+    grid-template-rows: 0.2fr 2.7fr 0.1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "header header"
+        "map map"
+        "footer footer";
+}
+
+.header {
+    grid-area: header;
+    background-color: rgb(92, 92, 89);
+}
+
+.map-container {
+    grid-area: map;
+    /* background-color: yellow; */
+}
+
+.footer {
+    grid-area: footer;
+    background-color:cadetblue;
+
+}
+
+/* button */
+.hello {
+    right: 50%;
+    top: 0.5em;
+}
+
+.footer {
+    min-height: 20px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* body > div > div.footer > div:nth-child(1) */
+
+.footer-block {
+    min-width: 150px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-around;
+}
+
+div.footer>div:nth-child(1){
+    width: 300px;
+}
+
+/* body > div > div.footer > div:nth-child(1) > span */
+
+.footer>.footer-block>span {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#coordinates{
+    width: 250px;
+}
+/* #coordinates*/
+#coordinates,
+#username,
+#spatialreference {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#username,
+#spatialreference {
+    font-size: 12px;
+    width: 64px;
+    text-align: center;
+}
+
+#footer {
+    height: 150px;
+    background-color: #0e7800;
+    border: 1px solid #345578;
+    overflow: hidden;
+    width: 180px;
+    right: 0;
+    position: absolute;
+    z-index: 100;
+    bottom: 0;
+    border-radius: 10px 10px 0 0;
+    opacity: .9;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        top: 45px;
+        bottom: 30px;
+    }
+}
+
