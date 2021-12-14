@@ -2,11 +2,32 @@ const attribution = new ol.control.Attribution({
     collapsible: false,
 });
 
-var map = new ol.Map({
+const controlesMapaBase = [
+    new ol.control.Zoom({  
+      delta: 0.5  
+    })  
+  ];
+
+const mapaBase = new ol.layer.Tile({ 
+    source: new ol.source.OSM() 
+    })
+
+const vistaMapaBase = new ol.View({ 
+    projection: 'EPSG:3857',
+    center: [0,0],
+    zoom: 1 
+  });
+
+const map = new ol.Map({
     target: 'map',
+    layers: [mapaBase],
+    view : vistaMapaBase,
+    controls: controlesMapaBase
+    /**
     controls: ol.control.defaults({
         attribution: false
     }).extend([attribution])
+     */
 });
 
 var sidebar = new ol.control.Sidebar({
