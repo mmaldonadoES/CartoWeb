@@ -1,7 +1,7 @@
 
 const info = document.getElementById('info');
 
-const doShowInfo = false;
+const doShowInfo = true;
 
 const currentMapSize = (info, x, y) => {
     let wmax;
