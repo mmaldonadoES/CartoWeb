@@ -11,7 +11,7 @@ let map = new ol.Map({
     controls: ol.control.defaults({
         attribution: false
     }).extend([attribution]),
-    layers: [MapaBase, vector_Apoyos],
+    layers: [MapaBase, layer_Apoyos],
     view: new ol.View({
         center: ol.proj.fromLonLat([-73.13, 7.13]),
         minZoom: 1,
@@ -26,7 +26,7 @@ let sidebar = new ol.control.Sidebar({
 });
 
 map.addControl(sidebar);
-    
+
 // Button Control
 // Add a custom push button with onToggle function
 let hello = new ol.control.Button({
