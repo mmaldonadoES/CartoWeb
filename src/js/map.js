@@ -23,11 +23,6 @@ const map = new ol.Map({
     layers: [mapaBase],
     view : vistaMapaBase,
     controls: controlesMapaBase
-    /**
-    controls: ol.control.defaults({
-        attribution: false
-    }).extend([attribution])
-     */
 });
 
 var sidebar = new ol.control.Sidebar({
