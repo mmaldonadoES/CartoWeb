@@ -2,7 +2,7 @@
 function pulseFeature(coord) {
       
    
-    const features = map.getFeaturesAtPixel(map.getPixelFromCoordinate(coord), { hitTolerance: 15 });
+    const features = map.getFeaturesAtPixel(map.getPixelFromCoordinate(coord), { hitTolerance: 25 });
     if (features.length == 0) {
        return;  
     }
