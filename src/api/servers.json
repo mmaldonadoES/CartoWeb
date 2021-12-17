@@ -1,0 +1,24 @@
+[
+    {
+        "code": 1,
+        "name": "Open Street Maps",
+        "route": "https://www.openstreetmap.org/#map=3/-9.54/-45.70",
+        "maxZoom": 12,
+        "minZoom": 5
+    },
+    {
+        "code": 2,
+        "name": "Google Maps",
+        "route": "https://www.google.com/maps/@7.1107807,-73.1231582,15z",
+        "maxZoom": 12,
+        "minZoom": 5
+    }, 
+    {
+        "code": 3,
+        "name": "MapBox",
+        "route": "https://www.mapbox.com/",
+        "maxZoom": 10,
+        "minZoom": 4
+    }
+
+]

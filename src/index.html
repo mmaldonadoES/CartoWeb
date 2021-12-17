@@ -33,6 +33,7 @@
                                 <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
                                 <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a>
                                 </li>
+                                <li><a href="#maps" role="tab"><i class="fa fa-globe"></i></a></li>
                                 <li><a class="disabled" href="#github" role="tab"><i class="fa fa-github"></i></a></li>
                             </ul>
 
@@ -90,6 +91,26 @@
                                     est Lorem ipsum dolor sit amet.</p>
                             </div>
 
+                            <div class="sidebar-pane" id="maps">
+                                <h1 class="sidebar-header">
+                                  Mapas Base
+                                  <span class="sidebar-close"
+                                    ><i class="fa fa-caret-left"></i
+                                  ></span>
+                                </h1>
+                  
+                                <div class="mb-3">
+                                  <label for="formFile" class="form-label">Mapas</label>
+                                  <select
+                                    id="selecetMapaBase"
+                                    class="form-select"
+                                    aria-label="Default select example"
+                                  >
+                                    <option selected>Seleccione el mapa base</option>
+                                  </select>
+                                </div>
+                              </div>
+
                             <div class="sidebar-pane" id="profile">
                                 <h1 class="sidebar-header">Profile<span class="sidebar-close"><i
                                             class="fa fa-caret-left"></i></span></h1>
@@ -129,8 +150,10 @@
         
         <!-- <script src="./js/bootstrap.bundle.min.js"></script> -->
         <script src="./js/ol3-sidebar.js"></script>
+        <script src="./js/capas.js"></script>
         <script src="./js/map.js"></script>
         <script src="./js/MousePosition.js"></script>
+        <script src="./js/index.js"></script>
     </body>
 
 </html>
