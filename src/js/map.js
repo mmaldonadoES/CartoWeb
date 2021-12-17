@@ -13,7 +13,7 @@ const mapaBase = new ol.layer.Tile({
 
 const vistaMapaBase = new ol.View({ 
     projection: 'EPSG:3857',
-    center: [0,0],
+      center: ol.proj.fromLonLat([-73.13, 7.13]),
       minZoom: 1,
       maxZoom: 20,
       zoom: 11
