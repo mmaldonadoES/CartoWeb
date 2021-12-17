@@ -1,20 +1,34 @@
 const attribution = new ol.control.Attribution({
-  collapsible: false,
+    collapsible: false
 });
 
-let map = new ol.Map({
-  target: 'map',
-  controls: ol.control.defaults({
-      attribution: false
-  }).extend([attribution]),
-  layers: [MapaBase, layer_Apoyos],
-  view: new ol.View({
-      center: ol.proj.fromLonLat([-73.13, 7.13]),
+const controlesMapaBase = 
+    new ol.control.Zoom({  
+      delta: 0.5
+    });
+
+const mapaBase = new ol.layer.Tile({ 
+    source: new ol.source.OSM() 
+    });
+
+const vistaMapaBase = new ol.View({ 
+    projection: 'EPSG:3857',
+    center: [0,0],
       minZoom: 1,
       maxZoom: 20,
       zoom: 11
-  })
+  });
+
+const map = new ol.Map({
+    target: 'map',
+    layers: [mapaBase,layer_Apoyos],
+    view : vistaMapaBase,        
+    controls: ol.control.defaults({
+        attribution: false,
+    }).extend([attribution])
 });
+
+map.addControl(controlesMapaBase);
 
 var sidebar = new ol.control.Sidebar({
   element: 'sidebar',
