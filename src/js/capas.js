@@ -104,6 +104,7 @@ let style_trafo = new ol.style.Style({
         radius: 5,
         rotation: Math.PI / 4,
         angle: 0,
+        displacement: [0,10]
     })
 });
 
@@ -121,8 +122,8 @@ let style_interruptor = new ol.style.Style({
         points: 4,
         angle: 0,
         scale: [1, 0.5],
-        zindex : 100
-    }),
+        displacement: [15,0]
+    })
 })
 
 
@@ -132,8 +133,8 @@ let source_Apoyos = new ol.source.VectorTile({
 });
 
 
+var typeCache = {};
 const Estilos_Energis = (feature) => {
-
     let array = [];
 
     if (feature.get('ap') != undefined) {
@@ -162,6 +163,8 @@ const Estilos_Energis = (feature) => {
 
     return array;
 };
+
+
 
 let layer_Apoyos = new ol.layer.VectorTile({
     source: source_Apoyos,
