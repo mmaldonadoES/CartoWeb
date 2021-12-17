@@ -65,39 +65,90 @@ let style_ap = new ol.style.Style({
         }),
         points: 4,
         angle: 0,
-        radius: 10,
-        radius2: 10,
-        radius3: 10,
-        radius4: 10,
+        radius: 7,
+        radius2: 7,
+        radius3: 7,
+        radius4: 7,
         scale: [1, 0.5],
         displacement: [15,0]
     })
 });
 
-
-/*
-const circle = new ol.style.Circle({
-    radius: 5,
-    stroke: new ol.style.Stroke({
-        color: 'yellow',
-        width: 0
+let style_ap_linea = new ol.style.Style({
+    image: new ol.style.RegularShape({
+        fill: new ol.style.Fill({
+            color: 'black'
+        }),
+        stroke: new ol.style.Stroke({
+            color: 'black',
+            width: 0
+        }),
+        radius: 2 / Math.SQRT2,
+        radius2: 2,
+        points: 4,
+        angle: 90,
+        scale: [2, 0.5],
+        displacement: [3,0]
     }),
-    fill: new ol.style.Fill({
-        color: 'yellow'
+    zindex : 100
+});
+
+let style_ap_linea_i = new ol.style.Style({
+    image: new ol.style.RegularShape({
+        fill: new ol.style.Fill({
+            color: 'black'
+        }),
+        stroke: new ol.style.Stroke({
+            color: 'black',
+            width: 0
+        }),
+        radius: 2 / Math.SQRT2,
+        radius2: 2,
+        points: 4,
+        angle: 0,
+        scale: [0.5, 1],
+        displacement: [28,-5]
     })
 });
 
-// fromCircle is a function inside Polygon class
-const ellipse = ol.geom.Polygon.fromCircle(circle, 100);
-ellipse.scale(1, 5 / 2); 
 
-// OL is counterclockwise rotation
-ellipse.rotate(-(1/2 * Math.PI) / 180, circle.getCenter());
+let style_ap_linea_d = new ol.style.Style({
+    image: new ol.style.RegularShape({
+        fill: new ol.style.Fill({
+            color: 'black'
+        }),
+        stroke: new ol.style.Stroke({
+            color: 'black',
+            width: 0
+        }),
+        radius: 2 / Math.SQRT2,
+        radius2: 2,
+        points: 4,
+        angle: 0,
+        scale: [0.5, 1],
+        displacement: [28,5]
+    })
+});
 
 
-// falta
-let style_ap = ellipse;
-*/
+let style_ap_linea_a = new ol.style.Style({
+    image: new ol.style.RegularShape({
+        fill: new ol.style.Fill({
+            color: 'black'
+        }),
+        stroke: new ol.style.Stroke({
+            color: 'black',
+            width: 0
+        }),
+        radius: 2 / Math.SQRT2,
+        radius2: 2,
+        points: 4,
+        angle: 0,
+        scale: [1, 0.5],
+        displacement: [23,0]
+    })
+});
+
 let style_trafo = new ol.style.Style({
     image: new ol.style.RegularShape({
         fill: new ol.style.Fill({
@@ -108,30 +159,49 @@ let style_trafo = new ol.style.Style({
             width: 0
         }),
         points: 3,
-        radius: 5,
-        rotation: Math.PI / 4,
+        radius: 6,
+        rotation: 2*Math.PI,
         angle: 0,
-        displacement: [-5,10]
+        displacement: [3,10]
     })
 });
 
 let style_interruptor = new ol.style.Style({
     image: new ol.style.RegularShape({
         fill: new ol.style.Fill({
-            color: 'red'
+            color: 'green'
         }),
         stroke: new ol.style.Stroke({
             color: 'black',
             width: 0
         }),
-        radius: 10 / Math.SQRT2,
-        radius2: 10,
+        radius: 5 / Math.SQRT2,
+        radius2: 5,
         points: 4,
         angle: 0,
         scale: [1, 0.5],
         displacement: [-15,0]
     })
-})
+});
+
+let style_interruptor_2 = new ol.style.Style({
+    image: new ol.style.RegularShape({
+        fill: new ol.style.Fill({
+            color: 'green'
+        }),
+        stroke: new ol.style.Stroke({
+            color: 'black',
+            width: 0
+        }),
+        radius: 5 / Math.SQRT2,
+        radius2: 5,
+        points: 4,
+        angle: 0,
+        scale: [1, 0.5],
+        displacement: [-22,0]
+    })
+});
+
 
 
 let source_Apoyos = new ol.source.VectorTile({
@@ -146,6 +216,10 @@ const Estilos_Energis = (feature) => {
 
     if (feature.get('ap') != undefined) {
         array.push(style_ap);
+        array.push(style_ap_linea);
+        array.push(style_ap_linea_i);
+        array.push(style_ap_linea_d);
+        array.push(style_ap_linea_a);
     }
 
     if (feature.get('tipoapoyo').includes('M')) {
@@ -165,6 +239,7 @@ const Estilos_Energis = (feature) => {
 
     if (feature.get('interrup') != 'X') {
         array.push(style_interruptor);
+        array.push(style_interruptor_2);
     }
 
 
