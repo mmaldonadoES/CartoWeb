@@ -55,15 +55,22 @@ let style_generico = new ol.style.Style({
 
 
 let style_ap = new ol.style.Style({
-    image: new ol.style.Circle({
-        radius: 1,
+    image: new ol.style.RegularShape({
+        fill: new ol.style.Fill({
+            color: 'yellow'
+        }),
         stroke: new ol.style.Stroke({
             color: 'black',
-            width: 1
+            width: 0
         }),
-        fill: new ol.style.Fill({
-            color: 'green'
-        })
+        points: 4,
+        angle: 0,
+        radius: 10,
+        radius2: 10,
+        radius3: 10,
+        radius4: 10,
+        scale: [1, 0.5],
+        displacement: [15,0]
     })
 });
 
@@ -104,7 +111,7 @@ let style_trafo = new ol.style.Style({
         radius: 5,
         rotation: Math.PI / 4,
         angle: 0,
-        displacement: [0,10]
+        displacement: [-5,10]
     })
 });
 
@@ -122,7 +129,7 @@ let style_interruptor = new ol.style.Style({
         points: 4,
         angle: 0,
         scale: [1, 0.5],
-        displacement: [15,0]
+        displacement: [-15,0]
     })
 })
 
