@@ -7,8 +7,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
         <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
-        <link rel="stylesheet"
-            href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css">
         <title>Template</title>
         <link rel="stylesheet" href="./css/ol3-sidebar.css">
         <link rel="stylesheet" href="./css/index.css">
@@ -18,13 +16,22 @@
         <!-- ol-ext -->
         <link rel="stylesheet" href="./css/ol-ext.css">
         <script src="./js/ol-ext.js"></script>
+        <!-- Info  -->
+        <link rel="stylesheet" href="./css/info.css">
+
     </head>
 
     <body>
 
         <div class="container">
             <div class="header"></div>
+                <div id="popup" class="ol-popup">
+                    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                    <div id="popup-content"></div>
+                </div>
+           
             <div class="map-container">
+                 <div id="info"></div>
                     <div id="sidebar" class="sidebar collapsed">
                         <!-- Nav tabs -->
                         <div class="sidebar-tabs">
@@ -126,8 +133,13 @@
         </div>
         
         <!-- <script src="./js/bootstrap.bundle.min.js"></script> -->
+        <script src="./js/global.js"></script>
         <script src="./js/ol3-sidebar.js"></script>
+        <script src="./js/capas.js"></script>
         <script src="./js/map.js"></script>
+        <script src="./js/overlayinfo.js"></script>
+        <!-- <script src="./js/info.js"></script> -->
+        <script src="./js/pulseRed.js"></script>
     </body>
 
 </html>

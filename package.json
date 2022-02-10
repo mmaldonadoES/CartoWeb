@@ -2,11 +2,10 @@
   "name": "openlayertemplate",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "node index.js",
-    "start": "parcel index.html",
-    "build": "parcel build --public-url . index.html"
+    "start": "parcel ./src/index.html",
+    "build": "parcel build --public-url . ./src/index.html  --no-source-maps"
   },
   "author": "",
   "license": "ISC",
