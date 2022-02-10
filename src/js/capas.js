@@ -16,12 +16,14 @@ let style_apoyos = new ol.style.Style({
 
 let source_Apoyos = new ol.source.VectorTile({
     format: new ol.format.MVT(),
-    url: 'http://198.58.115.96:8080/maps/essa/apoyosprint/{z}/{x}/{y}.pbf',
+
+    url: tiles_server + capa_apoyos,
 })
 
 let layer_Apoyos = new ol.layer.VectorTile({
+    name: 'apoyos',
     source: source_Apoyos,
-    minZoom: 16,
+    minZoom: 17,
     maxZoom: 20,
     style: style_apoyos,
 })

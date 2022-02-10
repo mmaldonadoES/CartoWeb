@@ -30,12 +30,12 @@ map.addOverlay(overlay)
 
 /**
  * Add a click handler to the map to render the popup.
- */
+
 map.on('singleclick', function (evt) {
     const coordinate = evt.coordinate;
-    // const hdms = ol.proj.toLonLat(coordinate);
-    const hdms = coordinate;
+    const hdms = ol.proj.toLonLat(coordinate);
+    // const hdms = coordinate;
 
     content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
     overlay.setPosition(coordinate);
-});
+}); */
