@@ -50,11 +50,6 @@ body,
 
 }
 
-/* button */
-.hello {
-    right: 50%;
-    top: 0.5em;
-}
 
 .footer {
     min-height: 20px;
@@ -129,3 +124,15 @@ div.footer>div:nth-child(1){
     }
 }
 
+/* estilos para controles */
+
+/* button */
+.hello {
+    right: 50%;
+    top: 0.5em;
+}
+
+.buscar_apoyo {
+    top: 4em;
+    left:4.3em;
+}

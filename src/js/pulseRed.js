@@ -34,6 +34,9 @@ function pulseFeature(coord) {
         layerFilter: onlyApoyoLayerFilter,
         hitTolerance: 15
     });
+
+    console.log(features);
+    
     if (features.length == 0) {
         return;
     }

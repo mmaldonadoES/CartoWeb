@@ -1,18 +1,15 @@
 const attribution = new ol.control.Attribution({
-    collapsible: false,
+    collapsible: true,
 });
 
-let MapaBase = new ol.layer.Tile({
-    source: new ol.source.OSM()
 
-})
 
 let map = new ol.Map({
     target: 'map',
     controls: ol.control.defaults({
         attribution: false
     }).extend([attribution]),
-    layers: [MapaBase, layer_Apoyos],
+    layers: [baseLayers, grupo_capas],
     view: new ol.View({
         center: ol.proj.fromLonLat([-73.1202805, 7.107080]),
         minZoom: 1,
@@ -21,29 +18,77 @@ let map = new ol.Map({
     })
 });
 
-let sidebar = new ol.control.Sidebar({
+
+
+
+//CONTROLES
+// ---------------------------------------------------------------------------------------------------------------------
+// ZOOM
+const controlZoom =
+  new ol.control.Zoom({
+    delta: 0.5
+  });
+
+
+// SIDE BAR
+const sidebar = new ol.control.Sidebar({
     element: 'sidebar',
     position: 'left'
 });
 
-map.addControl(sidebar);
-
-// Button Control
-// Add a custom push button with onToggle function
-let hello = new ol.control.Button({
-    html: '<i class="fa fa-smile-o"></i>',
-    className: "hello",
-    title: "Hello world!",
-    handleClick: function () {
-        showinfo("hello World!");
-    }
+// BUSQUEDA
+var buscar = new ol.control.Button({
+  html: '<i class="fa fa-search" id="buscar_apoyo"  aria-hidden="true"></i>',
+  className: "buscar_apoyo",
+  title: "Buscar por pintado en cartografia",
+  handleClick: async function () {
+    await BuscarApoyoCartografia();
+  }
 });
-map.addControl(hello);
 
-// Show info
-function showinfo(i) {
-    console.log(i);
-}
+// layerSwitcher
+var ctrl = new ol.control.LayerSwitcher({
+    // collapsed: false,
+    // mouseover: true
+});
+
+
+// Posición del Mouse 
+const mousePositionControl = new ol.control.MousePosition({
+    coordinateFormat: ol.coordinate.createStringXY(8),
+    projection: 'EPSG:4326',
+    // comment the following two lines to have the mouse position
+    // be placed within the map.
+    className: 'custom-mouse-position',
+    target: document.getElementById('coordinates'),
+});
+  
+
+// Add a custom push button with onToggle function
+// USE ESTE CONTROL COMO UN TEMPLATE PARA GENERAR LOS DEMAS
+var hello = new ol.control.Button({
+  html: '<i class="fa fa-smile-o"></i>',
+  className: "hello",
+  title: "Hello world!",
+    handleClick: function () {
+        alert("Hello world!");
+    } 
+});
+
+
+
+
+
+
+map.addControl(hello);  //<--- ESTE CONTROL NO SE USA
+map.addControl(controlZoom);
+map.addControl(sidebar);
+map.addControl(buscar);
+map.addControl(mousePositionControl);
+map.addControl(ctrl);
+
+
+
 
 map.on('pointermove', function (evt) {
     if (evt.dragging) {
@@ -57,26 +102,3 @@ map.on('pointermove', function (evt) {
     map.getTargetElement().style.cursor = hit ? 'pointer' : '';
 });
 
-function sendMessageToHostApp(json) {
-    try {
-        if (window.chrome.webview && window.chrome.webview.postMessage) {
-            window.chrome.webview.postMessage(json);
-        }
-    } catch (error) {
-        console.error(error);
-        // expected output: ReferenceError: nonExistentFunction is not defined
-        // Note - error messages will vary depending on browser
-    }
-    
-}
-
-// load function on load
-window.onload = function () {
-    // console.log('onload');
-    if (window.chrome.webview) {
-        window.chrome.webview.addEventListener("message", function (event) {
-            // console.log(event.data);
-            setGlobarVariables(JSON.parse(event.data));
-        });
-    }
-}

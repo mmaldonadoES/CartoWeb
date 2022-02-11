@@ -20,7 +20,7 @@ function setGlobarVariables(data) {
 // http://192.168.0.31:8880/capabilities/essa.json   <---- ruta para ver los tiles activos
 const tiles_server = 'http://192.168.0.31:8880/';
 const capa_apoyos = 'maps/essa/apoyos/{z}/{x}/{y}.pbf';  //><-----se va a cambiar cuando exista una api de capas
-
+const capa_clientes = 'maps/essa/clientes/{z}/{x}/{y}.pbf';
 
 // -------------------PARAMETROS DE CONFIGURACION ----------------------------------
 // BACKEND 
