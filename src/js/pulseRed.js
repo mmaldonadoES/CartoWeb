@@ -20,6 +20,15 @@ function decodeTableClientes(properties) {
     return  innerHTML;
 }
 
+const hidePopUp = () => {
+    document.getElementById('popup').classList.add('hidden');
+}
+
+const showPopUp = () => {
+    if (document.getElementById('popup').classList.contains('hidden')) {
+        document.getElementById('popup').classList.remove('hidden');
+    }
+}
 
 
 const MostrarModal = async (properties) => {
@@ -54,12 +63,14 @@ const MostrarModal = async (properties) => {
 // EVENTO SEGUN EL TIPO DE CAPAS
 function switchEvent(properties) {
     //check if properties object has a property called 'apoyo'
+    showPopUp();
     if (properties.hasOwnProperty('codigoapoyo')) {
         // console.log('apoyo');
         container_content.innerHTML = createTable(properties);
         return;
     } else if (properties.hasOwnProperty('geohash')) {
         // console.log('cliente');
+        hidePopUp();
         container_content.innerHTML = '';
         MostrarModal(properties);
         return;
