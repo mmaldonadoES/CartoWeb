@@ -69,7 +69,19 @@ class ApiClient {
             method: 'GET',
             headers: this.myHeaders
         });
-        return await response.json();
+        const apoyos = await response.json();
+        return apoyos;
+    }
+
+    async getClientes(lon, lat) {
+        const url = this.url + `/api/clientes/?longitud=${lon}&latitud=${lat}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: this.myHeaders
+        });
+        const clientes = await response.json();
+        return clientes;
+
     }
 
 }

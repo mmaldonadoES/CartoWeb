@@ -269,7 +269,7 @@ let layer_Apoyos = new ol.layer.VectorTile({
 let layer_clientes = new ol.layer.VectorTile({
     name: 'clientes',
     source: source_Clientes,
-    minZoom: 4,
+    minZoom: 18,
     maxZoom: 20,
     style: estilosCliente,  
 });

@@ -11,23 +11,70 @@ function createTable(properties) {
     return '<table id="propiedades">' + innerHTML + '</table>'
 }
 
-function decodeProperties(properties) {
-    var decoded = `<p>codigoapoyo: ${properties['apoyo']}</p>
-    <p> alumbrado: ${properties['ap']?properties['ap']:'--'} </p>
-    <p> interruptor: ${properties['interrup']}</p> 
-    <p> tipoapoyo: ${properties['tipoapoyo']}</p>
-    <p> transformador: ${properties['trafo']}</p>`;
-
-    return decoded;
+function decodeTableClientes(properties) {
+    const keys = ['CODIGOCLIENTESGD', 'CODIGOTRAFODIS', 'CODIGO_CUENTA', 'DIRECCIONSUSCRIPTOR', 'NOMBRESUSCRIPTOR'];
+    let innerHTML = ``;
+    keys.forEach(key => {
+        innerHTML += createRow(key, properties[key]);
+    });
+    return  innerHTML;
 }
 
+
+
+const MostrarModal = async (properties) => {
+    // antiguo MostrarModal
+    if (document.getElementById('costumer').classList.contains('active')) {
+    } else {
+        element = document.getElementById("costumer").classList.remove("disabled");
+        document.getElementById('costumer_a').click();
+    }
+    document.getElementById("costumers_tbody").innerHTML = "";
+
+
+    const apiClient = new ApiClient(backend_url, x_api_key);
+    const token = await apiClient.getToken();
+    // console.log(token);
+    // sessionStorage.setItem('token', token.data.token);
+    await apiClient.setToken(token.data.token);
+    apiClient.getClientes(properties['long'], properties['lat']).then(response => {
+        const clientes = response.data;
+        // console.log(response.data.length);
+        for (var i = 0; i < clientes.length; i++) {
+            console.log(clientes[i]);
+            let tr = document.createElement('tr');
+            tr.innerHTML = `<td>${clientes[i]['CODIGOCLIENTESGD']}</td><td>${clientes[i]['NOMBRESUSCRIPTOR']}</td><td>${clientes[i]['NOMBRESUSCRIPTOR']}</td>`;
+            document.getElementById("costumers_tbody").appendChild(tr);
+        }
+
+    });
+
+
+}
+// EVENTO SEGUN EL TIPO DE CAPAS
+function switchEvent(properties) {
+    //check if properties object has a property called 'apoyo'
+    if (properties.hasOwnProperty('codigoapoyo')) {
+        // console.log('apoyo');
+        container_content.innerHTML = createTable(properties);
+        return;
+    } else if (properties.hasOwnProperty('geohash')) {
+        // console.log('cliente');
+        container_content.innerHTML = '';
+        MostrarModal(properties);
+        return;
+    }
+
+}
+
+// SOLO LOS LAYERS QUE RETORNEN TRUE SERAN ATENDIDOS EN EL PULSE CLICK
 function onlyApoyoLayerFilter(layer) {
-    // console.log(layer.getProperties());
-    return layer.get('name') == 'apoyos';
+    const list_layers = ['apoyos', 'clientes', 'trafos', 'interruptores'];
+    return list_layers.includes(layer.get('name'));
 }
 
 // Pulse feature at coord
-function pulseFeature(coord) {
+const pulseFeature =  async(coord) => {
 
 
     const features = map.getFeaturesAtPixel(map.getPixelFromCoordinate(coord), {
@@ -35,13 +82,13 @@ function pulseFeature(coord) {
         hitTolerance: 15
     });
 
-    console.log(features);
     
+
     if (features.length == 0) {
         return;
     }
     //  const closestFeature = source_Apoyos.getClosestFeatureToCoordinate(coord);
-
+    // console.log(features[0].getProperties());
 
     const closestFeature = features[0];
     const closest_coordinates = closestFeature.getFlatCoordinates();
@@ -50,8 +97,8 @@ function pulseFeature(coord) {
     // console.log(JSON.stringify(properties) + '\n');
 
 
-    // content.innerHTML = decodeProperties(closestFeature.getProperties());
-    content.innerHTML = createTable(properties);
+    switchEvent(properties);   /// <--- CODIFICAR LOS DATOS DE LAS PROPIEDADES SEGUN LA CAPA
+    // content.innerHTML = createTable(properties);
     overlay.setPosition(closest_coordinates);
 
 

@@ -2,7 +2,7 @@
  * Elements that make up the popup.
  */
 const container = document.getElementById('popup');
-const content = document.getElementById('popup-content');
+const container_content = document.getElementById('popup-content');
 const closer = document.getElementById('popup-closer');
 
 /**
