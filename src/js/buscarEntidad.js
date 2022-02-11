@@ -5,15 +5,16 @@ function ConsultarLATLON(entidad, codigo, tipocodigo) {
     myHeaders.append("x-api-key", x_api_key);
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
-    fetch(backend_url + '/api/clientes/?entidad=' + entidad + '&codigo=' + codigo+ '&tipocodigo=' + tipocodigo, {
+    fetch(backend_url + '/api/busquedacapanegocio/?entidad=' + entidad + '&codigo=' + codigo+ '&tipocodigo=' + tipocodigo, {
             method: 'GET', // or 'PUT'
             headers: myHeaders
         }).then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(response => {
             let clientes = response.data;
+            let arrayDeLATLON= clientes.split(';');
             try {
-                UbicarEnMapa(clientes.lat, clientes.lon);
+                UbicarEnMapa(arrayDeLATLON[0], arrayDeLATLON[1]);
             } catch (error) {
                 alert(error);
             }

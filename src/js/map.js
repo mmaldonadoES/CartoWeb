@@ -53,3 +53,13 @@ map.addControl(hello);
 function info(i) {
   console.log(i);
 }
+
+function UbicarEnMapa(lat, lon) {
+
+  const lugar = ol.proj.fromLonLat([lon, lat]);
+
+  map.getView().setCenter(lugar);
+
+  map.getView().setZoom(16);
+
+}
