@@ -91,3 +91,5 @@ function UbicarEnMapaXY(x, y) {
   pulse(ol.proj.transform([x_c,y_c], MagnaSirgas, 'EPSG:4326'))
 
 }
+
+

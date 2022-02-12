@@ -278,11 +278,7 @@ let layer_clientes = new ol.layer.VectorTile({
 //   source: new ol.source.OSM()
 // });
 
-// GRUPOS DE CAPAS
-let grupo_capas =  new ol.layer.Group({
-  title: 'Capas Base',
-  layers: [layer_Apoyos, layer_clientes ]
-})
+
 
 
 // MAPAS BASES
@@ -305,4 +301,5 @@ var baseLayers   = new ol.layer.Group({
         })
     ]
 });
+
 

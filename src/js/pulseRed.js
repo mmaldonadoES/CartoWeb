@@ -74,13 +74,18 @@ function switchEvent(properties) {
         container_content.innerHTML = '';
         MostrarModal(properties);
         return;
+    } else if (properties.hasOwnProperty('fnap')) {
+        // console.log('trafo');
+        // hidePopUp();
+        container_content.innerHTML = JSON.stringify(properties, null, "\t");
+        return;
     }
 
 }
 
 // SOLO LOS LAYERS QUE RETORNEN TRUE SERAN ATENDIDOS EN EL PULSE CLICK
 function onlyApoyoLayerFilter(layer) {
-    const list_layers = ['apoyos', 'clientes', 'trafos', 'interruptores'];
+    const list_layers = ['apoyos', 'clientes', 'trafos', 'tramomt', 'tramobt'];
     return list_layers.includes(layer.get('name'));
 }
 
