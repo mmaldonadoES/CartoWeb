@@ -252,3 +252,4 @@ const EnviarDatosBusqueda = async () => {
 
    await ConsultarLATLON(entidad, codigo, tipocodigo);
 }
+

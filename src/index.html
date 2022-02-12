@@ -241,16 +241,24 @@
         </div>
         
         <!-- <script src="./js/bootstrap.bundle.min.js"></script> -->
+
         <script src="./js/global.js"></script>
+
         <script src="./js/ol3-sidebar.js"></script>
         <script src="./js/capas.js"></script>
+        <script src="./js/init.js"></script>
         <script src="./js/map.js"></script>
         <!-- <script src="./js/MousePosition.js"></script> -->
         <script src="./js/overlayinfo.js"></script>
         <!-- <script src="./js/info.js"></script> -->
         <script src="./js/pulseRed.js"></script>
         <script src="./js/utilidadesMapa.js"></script>
-        
+        <script>
+            window.onload = () => { 
+                loadCapAbilities();
+                // map.addLayer(grupo_capas);
+            };
+        </script>
 
     </body>
 

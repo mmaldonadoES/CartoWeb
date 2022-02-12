@@ -9,7 +9,7 @@ let map = new ol.Map({
     controls: ol.control.defaults({
         attribution: false
     }).extend([attribution]),
-    layers: [baseLayers, grupo_capas],
+    layers: [baseLayers],
     view: new ol.View({
         center: ol.proj.fromLonLat([-73.1202805, 7.107080]),
         minZoom: 1,
