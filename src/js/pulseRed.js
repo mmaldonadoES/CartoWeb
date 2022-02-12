@@ -50,7 +50,7 @@ const MostrarModal = async (properties) => {
         const clientes = response.data;
         // console.log(response.data.length);
         for (var i = 0; i < clientes.length; i++) {
-            console.log(clientes[i]);
+            //console.log(clientes[i]);
             let tr = document.createElement('tr');
             tr.innerHTML = `<td>${clientes[i]['CODIGOCLIENTESGD']}</td><td>${clientes[i]['NOMBRESUSCRIPTOR']}</td><td>${clientes[i]['NOMBRESUSCRIPTOR']}</td>`;
             document.getElementById("costumers_tbody").appendChild(tr);
@@ -142,10 +142,23 @@ map.on('singleclick', async (evt) => {
 
 // Pulse at lonlat
 function pulse(lonlat) {
-    var nb = $("#easing").val() == 'bounce' ? 1 : 3;
-    for (var i = 0; i < nb; i++) {
-        setTimeout(function () {
-            pulseFeature(ol.proj.transform(lonlat, 'EPSG:4326', map.getView().getProjection()));
-        }, i * 500);
-    };
+    var f = new ol.Feature(new ol.geom.Point(lonlat));
+    f.setStyle(new ol.style.Style({
+        image: new ol.style.Circle({
+            radius: 30,
+            stroke: new ol.style.Stroke({
+                color: 'red',
+                width: 2
+            })
+        })
+    }));
+    map.animateFeature(f, new ol.featureAnimation.Zoom({
+        fade: ol.easing.easeOut,
+        duration: 3000,
+        easing: ol.easing.easeOut
+    }));
+
+    // showPopUp();
+    // container_content.innerHTML = `<asdfadf>`;
+    // overlay.setPosition(lonlat);
 }

@@ -1,6 +1,8 @@
-let tbInfoApoyo;
 // active only debug
-tbInfoApoyo = true    //<---- controla la activacion de la info de apoyos
+let tbInfoApoyo = true;//<---- controla la activacion de la info de apoyos
+/// VARIABLES
+
+  
 
 
 function setGlobarVariables(data) {
