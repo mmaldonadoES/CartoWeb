@@ -51,6 +51,7 @@
                                         fa-globe"></i></a></li>
                             <li><a class="disabled" href="#github" role="tab"><i
                                         class="fa fa-github"></i></a></li>
+                          <li><a href="#busquedas" role="tab"><i class="fa fa-search"></i></a></li>
                             <li class="disabled" id="costumer"><a
                                     href="#costumers" id="costumer_a"
                                     role="tab"><i class="fa fa-users"></i></a></li>
@@ -85,6 +86,77 @@
                             <p class="lorem">Lorem ipsum dolor sit amet.</p>
                         </div>
 
+                        <div class="sidebar-pane" id="busquedas">
+                            <h1 class="sidebar-header">Busquedas<span class="sidebar-close"><i
+                                        class="fa fa-caret-left"></i></span></h1>
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="Entidades">ENTIDADES</h5>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="CajaCodigoABuscar"
+                                            aria-describedby="emailHelp" placeholder="Digite el código">
+                                        <div><br></div>
+                                        <label>Seleccione el Tipo de Entidad</label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="RadioEntidad" id="RadioApoyo"
+                                                value="1" checked>
+                                            <label class="form-check-label" for="RadioApoyo">Apoyo</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="RadioEntidad"
+                                                id="RadioTrafodis" value="2">
+                                            <label class="form-check-label" for="RadioTrafodis">
+                                                Transformador
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="RadioEntidad"
+                                                id="RadioCliente" value="3">
+                                            <label class="form-check-label" for="RadioCliente">
+                                                Cliente
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="RadioEntidad"
+                                                id="RadioTramoBT" value="4">
+                                            <label class="form-check-label" for="RadioTramoBT">
+                                                Tramo BT
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="RadioEntidad"
+                                                id="RadioTramoMT" value="5">
+                                            <label class="form-check-label" for="RadioTramoMT">
+                                                Tramo MT
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="RadioEntidad"
+                                                id="RadioSubestacion" value="6">
+                                            <label class="form-check-label" for="RadioSubestacion">Subestación</label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">Seleccione el Tipo de Código</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="RadioTipoCantidad"
+                                                id="RadioCodigoInterno" value="0" checked>
+                                            <label class="form-check-label" for="RadioTramoMT">Interno</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="RadioTipoCantidad"
+                                                id="RadioCodigoExterno" value="1">
+                                            <label class="form-check-label" for="RadioSubestacion">Externo</label>
+                                        </div>
+                                        <br>
+                                        <button type="button" class="btn btn-primary" id="btnBuscarEntidad">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                 
+
                         <div class="sidebar-pane" id="maps">
                             <h1 class="sidebar-header">
                                 Mapas Base
@@ -100,6 +172,9 @@
                                     aria-label="Default select example">
                                     <option selected>Seleccione el mapa base</option>
                                 </select>
+                                <div class="mb-3">
+                                    <button  id="modal_mapa" type="button" class="btn btn-primary">Agregar Mapa Base</button>
+                                </div>
                             </div>
                         </div>
 

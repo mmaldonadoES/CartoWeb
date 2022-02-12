@@ -1,3 +1,9 @@
+var datos = [];
+$modal_mapa_base = document.getElementById('modal_mapa');
+document.getElementById("btnBuscarEntidad").addEventListener("click",()=>EnviarDatosBusqueda);
+
+
+
 function BuscarApoyoCartografia() {
   $modal_mapa = document.getElementById('buscar_apoyo');
 
@@ -92,4 +98,158 @@ function UbicarEnMapaXY(x, y) {
 
 }
 
+
+$modal_mapa_base.addEventListener('click', async () => {
+
+
+   const { value: formValues } = await Swal.fire({
+      title: 'Agregar nueva Capa',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showCancelButton: true,
+      cancelButtonText: 'Cerrar',
+      html:
+         ' <div class="mb-3">' +
+         '<Label>Nombre</label>' +
+         '<input id="swal-input1" class="swal2-input">' +
+         '</div>' +
+         ' <div class="mb-3">' +
+         '<Label>Ruta</label>' +
+         '<input id="swal-input2" class="swal2-input">' +
+         '</div>' +
+         ' <div class="mb-3">' +
+         '<Label>Z Mínimo</label>' +
+         '<input type="number" id="swal-input3" class="swal2-input">' +
+         '</div>' +
+         ' <div class="mb-3">' +
+         '<Label>Z Máximo</label>' +
+         '<input type="number" id="swal-input4" class="swal2-input">' +
+         '</div>',
+      focusConfirm: true,
+      preConfirm: () => {
+         let json = {
+            "code":  Math.floor(Math.random()*394)+10,
+            "name": document.getElementById('swal-input1').value,
+            "route": document.getElementById('swal-input2').value,
+            "minZoom": document.getElementById('swal-input3').value,
+            "maxZoom": document.getElementById('swal-input4').value,
+         };
+         if (isValidURL(json.route)){
+         if (parseInt(json.minZoom) < parseInt(json.maxZoom)) {
+            if (parseInt(json.maxZoom) >= 0 && parseInt(json.maxZoom) <= 20) {
+               if (parseInt(json.minZoom) >= 0 && parseInt(json.minZoom) <= 20) {
+                  if (validarModal(json)) {
+                     datos.push(json);
+                     document.querySelector("#selecetMapaBase").innerHTML = '';
+                     userAction();
+                     Swal.fire(
+                        'Información',
+                        'El mapa base se ha agregado con éxito',
+                        'information'
+                     );
+
+                  } else {
+                     Swal.showValidationMessage('Ha ocurrido un error, todos los datos son obligatorios.');
+                  }
+               } else {
+                  Swal.showValidationMessage('Ha ocurrido un error, El nivel de Zoom mínimo debe estar entre 0 y 20');
+               }
+            } else {
+               Swal.showValidationMessage('Ha ocurrido un error, El nivel de Zoom máximo debe estar entre 0 y 20');
+            }
+         } else {
+            Swal.showValidationMessage('Ha ocurrido un error, El nivel de Zoom mínimo debe ser menor al Zoom máximo');
+         }
+      } else {
+         Swal.showValidationMessage('Ha ocurrido un error, La ruta ingresada no es valida, ingrese otra e intente nuevamente');
+      }
+         return json;
+      }
+   });
+
+});
+
+
+
+function validarModal  (formValues) {
+if (formValues.name != '') {
+   if (formValues.route != '') {
+      if (formValues.minZoom != '') {
+         if (formValues.maxZoom != '') {
+            return true;
+         } else { return false }
+      } else { return false }
+   } else { return false }
+} else { return false };
+};
+
+
+function isValidURL (string) {
+var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+return (res !== null)
+};
+
+const userAction = async () => {
+   select = document.getElementById('selecetMapaBase');
+
+   if (datos.length > 0) {
+      for (let i = 0; i <= datos.length - 1; i++) {
+         let opt = document.createElement('option');
+         opt.value = datos[i].code;
+         opt.innerHTML = datos[i].name;
+         select.appendChild(opt);
+
+      }
+   }
+
+}
+
+const  ConsultarLATLON = async (entidad, codigo, tipocodigo)  =>{
+
+  const apiClient = new ApiClient(backend_url, x_api_key);
+    const token = await apiClient.getToken();
+    // console.log(token);
+    // sessionStorage.setItem('token', token.data.token);
+    await apiClient.setToken(token.data.token);
+    apiClient.getBusquedaCapaNegocio(entidad,codigo,tipocodigo).then(response => {
+        let clientes = response.data;
+        try {
+            UbicarEnMapa(clientes.lat, clientes.lon);
+        } catch (error) {
+            alert(error);
+        }
+
+    });
+      
+}
+
+const EnviarDatosBusqueda = async () => {
+    let codigo = document.getElementById('CajaCodigoABuscar').value;
+    if (document.getElementById('RadioApoyo').checked) {
+        let entidad = 'apoyo';
+    }
+    if (document.getElementById('RadioTrafodis').checked) {
+        let entidad = 'trafodis';
+    }
+    if (document.getElementById('RadioCliente').checked) {
+        let entidad = 'cliente';
+    }
+    if (document.getElementById('RadioTramoMT').checked) {
+        let entidad = 'tramomt';
+    }
+    if (document.getElementById('RadioTramoBT').checked) {
+        let entidad = 'tramobt';
+    }
+    if (document.getElementById('RadioSubestacion').checked) {
+        let entidad = 'subestacion';
+    }
+    if (document.getElementById('RadioCodigoInterno').checked) {
+        let tipocodigo = 'interno';
+    }
+    if (document.getElementById('RadioCodigoExterno').checked) {
+        let tipocodigo = 'externo';
+    }
+
+   await ConsultarLATLON(entidad, codigo, tipocodigo);
+}
 
