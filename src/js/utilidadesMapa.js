@@ -1,4 +1,5 @@
 $modal_mapa_base = document.getElementById('modal_mapa');
+var datos = [];
 
 function BuscarApoyoCartografia() {
   $modal_mapa = document.getElementById('buscar_apoyo');
@@ -185,3 +186,18 @@ function isValidURL (string) {
 var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
 return (res !== null)
 };
+
+const userAction = async () => {
+   select = document.getElementById('selecetMapaBase');
+
+   if (datos.length > 0) {
+      for (let i = 0; i <= datos.length - 1; i++) {
+         let opt = document.createElement('option');
+         opt.value = datos[i].code;
+         opt.innerHTML = datos[i].name;
+         select.appendChild(opt);
+
+      }
+   }
+
+}
