@@ -86,6 +86,17 @@ class ApiClient {
 
     }
 
+    async getBusquedaCapaNegocio(entidad, codigo, tipocodigo) {
+        const url = this.url + '/api/busquedacapanegocio/?entidad=' + entidad + '&codigo=' + codigo+ '&tipocodigo=' + tipocodigo;
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: this.myHeaders
+        });
+        const clientes = await response.json();
+        return clientes;
+
+    }
+
 }
 
 //ELIMINAR PARA PROBAR
