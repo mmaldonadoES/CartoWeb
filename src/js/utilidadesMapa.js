@@ -1,3 +1,6 @@
+document.getElementById("btnBuscarEntidad").addEventListener("click",()=>EnviarDatosBusqueda);
+
+
 function BuscarApoyoCartografia() {
   $modal_mapa = document.getElementById('buscar_apoyo');
 
@@ -90,4 +93,54 @@ function UbicarEnMapaXY(x, y) {
 
   pulse(ol.proj.transform([x_c,y_c], MagnaSirgas, 'EPSG:4326'))
 
+}
+
+
+const  ConsultarLATLON = async (entidad, codigo, tipocodigo)  =>{
+
+  const apiClient = new ApiClient(backend_url, x_api_key);
+    const token = await apiClient.getToken();
+    // console.log(token);
+    // sessionStorage.setItem('token', token.data.token);
+    await apiClient.setToken(token.data.token);
+    apiClient.getBusquedaCapaNegocio(entidad,codigo,tipocodigo).then(response => {
+        let clientes = response.data;
+        try {
+            UbicarEnMapa(clientes.lat, clientes.lon);
+        } catch (error) {
+            alert(error);
+        }
+
+    });
+      
+}
+
+const EnviarDatosBusqueda = async () => {
+    let codigo = document.getElementById('CajaCodigoABuscar').value;
+    if (document.getElementById('RadioApoyo').checked) {
+        let entidad = 'apoyo';
+    }
+    if (document.getElementById('RadioTrafodis').checked) {
+        let entidad = 'trafodis';
+    }
+    if (document.getElementById('RadioCliente').checked) {
+        let entidad = 'cliente';
+    }
+    if (document.getElementById('RadioTramoMT').checked) {
+        let entidad = 'tramomt';
+    }
+    if (document.getElementById('RadioTramoBT').checked) {
+        let entidad = 'tramobt';
+    }
+    if (document.getElementById('RadioSubestacion').checked) {
+        let entidad = 'subestacion';
+    }
+    if (document.getElementById('RadioCodigoInterno').checked) {
+        let tipocodigo = 'interno';
+    }
+    if (document.getElementById('RadioCodigoExterno').checked) {
+        let tipocodigo = 'externo';
+    }
+
+   await ConsultarLATLON(entidad, codigo, tipocodigo);
 }
