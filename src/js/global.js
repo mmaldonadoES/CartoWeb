@@ -20,7 +20,7 @@ function setGlobarVariables(data) {
 // -------------------PARAMETROS DE CONFIGURACION ----------------------------------
 // SERVIDOR DE CAPAS
 // http://192.168.0.31:8880/capabilities/essa.json   <---- ruta para ver los tiles activos
-const tiles_server = 'http://192.168.0.31:8880/';
+const tiles_server = 'http://192.168.0.31:8880/';    // <---- ruta para ver los tiles activos NECESITA CONEXION A LA VPN
 const capa_apoyos = 'maps/essa/apoyos/{z}/{x}/{y}.pbf';  //><-----se va a cambiar cuando exista una api de capas
 const capa_clientes = 'maps/essa/clientes/{z}/{x}/{y}.pbf';
 
@@ -62,7 +62,10 @@ class ApiClient {
             headers: this.myHeaders,
             body: raw
         });
-        return await response.json();
+        // return await response.json();
+        const token = await response.json();
+        this.setToken(token.data.token); 
+        return token;
     }
 
     async getApoyo(id) {
@@ -87,7 +90,7 @@ class ApiClient {
     }
 
     async getBusquedaCapaNegocio(entidad, codigo, tipocodigo) {
-        const url = this.url + '/api/busquedacapanegocio/?entidad=' + entidad + '&codigo=' + codigo+ '&tipocodigo=' + tipocodigo;
+        const url = this.url + `/api/consultas/busquedaCapaNegocio?entidad=${entidad}&codigo=${codigo}&tipocodigo=${tipocodigo}`;
         const response = await fetch(url, {
             method: 'GET',
             headers: this.myHeaders

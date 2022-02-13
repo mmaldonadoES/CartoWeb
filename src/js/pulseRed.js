@@ -2,8 +2,26 @@ function createRow(key, value) {
     return `<tr><td>${key}</td><td>${value?value : '--'}</td></tr>`;
 }
 
-function createTable(properties) {
+function createTableApoyo(properties) {
     const keys = ['codigoapoyo', 'pintadoapoyo', 'codigotipoapoyo', 'cantidadap', 'cantidadcondensador'];
+    let innerHTML = `<tr><th>Propiedad</th><th>Valor</th></tr>`;
+    keys.forEach(key => {
+        innerHTML += createRow(key, properties[key]);
+    });
+    return '<table id="propiedades">' + innerHTML + '</table>'
+}
+
+function createTableTramobt(properties) {
+    const keys = ['codigotramobt', 'fnap', 'codigotrafodis', 'pintadotrafodis'];
+    let innerHTML = `<tr><th>Propiedad</th><th>Valor</th></tr>`;
+    keys.forEach(key => {
+        innerHTML += createRow(key, properties[key]);
+    });
+    return '<table id="propiedades">' + innerHTML + '</table>'
+}
+
+function createTableTrafo(properties) {
+    const keys = ['codigoapoyo', 'cantidadtrafos', 'codigotrafodis', 'pintadotrafodis'];
     let innerHTML = `<tr><th>Propiedad</th><th>Valor</th></tr>`;
     keys.forEach(key => {
         innerHTML += createRow(key, properties[key]);
@@ -42,10 +60,14 @@ const MostrarModal = async (properties) => {
 
 
     const apiClient = new ApiClient(backend_url, x_api_key);
-    const token = await apiClient.getToken();
+    // let token = sessionStorage.getItem('token');
+    // if (!token) {
+        token = await apiClient.getToken();
+        // sessionStorage.setItem('token', token.data.token);
+    // }
     // console.log(token);
     // sessionStorage.setItem('token', token.data.token);
-    await apiClient.setToken(token.data.token);
+    // apiClient.setToken(token);
     apiClient.getClientes(properties['long'], properties['lat']).then(response => {
         const clientes = response.data;
         // console.log(response.data.length);
@@ -64,9 +86,13 @@ const MostrarModal = async (properties) => {
 function switchEvent(properties) {
     //check if properties object has a property called 'apoyo'
     showPopUp();
-    if (properties.hasOwnProperty('codigoapoyo')) {
+    if (properties.hasOwnProperty('cantidadap')) {
         // console.log('apoyo');
-        container_content.innerHTML = createTable(properties);
+        container_content.innerHTML = createTableApoyo(properties);
+        return;
+    } else if (properties.hasOwnProperty('delta')) {
+        // console.log('trafodis');
+        container_content.innerHTML = createTableTrafo(properties);
         return;
     } else if (properties.hasOwnProperty('geohash')) {
         // console.log('cliente');
@@ -75,16 +101,15 @@ function switchEvent(properties) {
         MostrarModal(properties);
         return;
     } else if (properties.hasOwnProperty('fnap')) {
-        // console.log('trafo');
-        // hidePopUp();
-        container_content.innerHTML = JSON.stringify(properties, null, "\t");
+        // console.log('tramobt');
+        container_content.innerHTML = createTableTramobt(properties);
         return;
     }
 
 }
 
 // SOLO LOS LAYERS QUE RETORNEN TRUE SERAN ATENDIDOS EN EL PULSE CLICK
-function onlyApoyoLayerFilter(layer) {
+function onlyLayerFilter(layer) {
     const list_layers = ['apoyos', 'clientes', 'trafos', 'tramomt', 'tramobt'];
     return list_layers.includes(layer.get('name'));
 }
@@ -94,7 +119,7 @@ const pulseFeature =  async(coord) => {
 
 
     const features = map.getFeaturesAtPixel(map.getPixelFromCoordinate(coord), {
-        layerFilter: onlyApoyoLayerFilter,
+        layerFilter: onlyLayerFilter,
         hitTolerance: 15
     });
 

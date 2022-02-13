@@ -35,10 +35,10 @@ const sidebar = new ol.control.Sidebar({
     element: 'sidebar',
     position: 'left'
 });
-
+//<i class="fas fa-map-marker-alt"></i>
 // BUSQUEDA
 var buscar = new ol.control.Button({
-  html: '<i class="fa fa-search" id="buscar_apoyo"  aria-hidden="true"></i>',
+  html: '<i class="fas fa-map-marker-alt" id="buscar_apoyo"  aria-hidden="true"></i>',
   className: "buscar_apoyo",
   title: "Buscar por pintado en cartografia",
   handleClick: async function () {

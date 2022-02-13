@@ -1,6 +1,6 @@
 var datos = [];
 $modal_mapa_base = document.getElementById('modal_mapa');
-document.getElementById("btnBuscarEntidad").addEventListener("click",()=>EnviarDatosBusqueda);
+document.getElementById("btnBuscarEntidad").addEventListener("click", async()=> await EnviarDatosBusqueda());
 
 
 
@@ -70,9 +70,14 @@ function BuscarApoyoCartografia() {
 };
 
 function UbicarEnMapa(lat, lon) {
-  const lugar = ol.proj.fromLonLat([lon, lat]);
-  map.getView().setCenter(lugar);
-  // map.getView().setZoom(16);
+   const lugar = ol.proj.fromLonLat([lon, lat]);
+   //   map.getView().setCenter(lugar);
+   // map.getView().setZoom(16);
+   const view = map.getView();
+   view.animate({
+      center: lugar,
+      duration: 2000,
+   });
   pulse(lugar);
 }
 
@@ -207,14 +212,19 @@ const userAction = async () => {
 const  ConsultarLATLON = async (entidad, codigo, tipocodigo)  =>{
 
   const apiClient = new ApiClient(backend_url, x_api_key);
-    const token = await apiClient.getToken();
-    // console.log(token);
-    // sessionStorage.setItem('token', token.data.token);
-    await apiClient.setToken(token.data.token);
+    const token = await apiClient.getToken(); // <--- Obtener el token Y ACTUALIZARLO EN EL CLIENTE
     apiClient.getBusquedaCapaNegocio(entidad,codigo,tipocodigo).then(response => {
-        let clientes = response.data;
-        try {
-            UbicarEnMapa(clientes.lat, clientes.lon);
+        let coordenadas = response.data;
+       try {
+          if (coordenadas.longitud == '0' || coordenadas.latitud == '0') {
+             throw new Error('No se encontraron coordenadas');
+          } else {
+
+             let lon = parseFloat(coordenadas.longitud);
+             let lat = parseFloat(coordenadas.latitud );
+             
+             UbicarEnMapa(lat, lon);
+          }
         } catch (error) {
             alert(error);
         }
@@ -224,32 +234,34 @@ const  ConsultarLATLON = async (entidad, codigo, tipocodigo)  =>{
 }
 
 const EnviarDatosBusqueda = async () => {
+   let entidad = '';
     let codigo = document.getElementById('CajaCodigoABuscar').value;
     if (document.getElementById('RadioApoyo').checked) {
-        let entidad = 'apoyo';
+        entidad = 'apoyo';
     }
     if (document.getElementById('RadioTrafodis').checked) {
-        let entidad = 'trafodis';
+        entidad = 'trafodis';
     }
     if (document.getElementById('RadioCliente').checked) {
-        let entidad = 'cliente';
+        entidad = 'cliente';
     }
     if (document.getElementById('RadioTramoMT').checked) {
-        let entidad = 'tramomt';
+        entidad = 'tramomt';
     }
     if (document.getElementById('RadioTramoBT').checked) {
-        let entidad = 'tramobt';
+        entidad = 'tramobt';
     }
     if (document.getElementById('RadioSubestacion').checked) {
-        let entidad = 'subestacion';
+        entidad = 'subestacion';
     }
     if (document.getElementById('RadioCodigoInterno').checked) {
-        let tipocodigo = 'interno';
+        tipocodigo = 'interno';
     }
     if (document.getElementById('RadioCodigoExterno').checked) {
-        let tipocodigo = 'externo';
-    }
-
+        tipocodigo = 'externo';
+   }
+   
+   // return alert(`${entidad} ${codigo} ${tipocodigo}`);
    await ConsultarLATLON(entidad, codigo, tipocodigo);
 }
 
