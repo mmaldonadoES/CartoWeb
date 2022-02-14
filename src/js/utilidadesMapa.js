@@ -16,31 +16,33 @@ function BuscarApoyoCartografia() {
       allowEscapeKey: false,
       showCancelButton: true,
       cancelButtonText: 'Cerrar',
-      html:
-        ' <div class="mb-3">' +
-        '<Label>Geometricas</label>' +
-        '<input id="swal-input_radio1" checked="checked" type="radio" name="coordenadas" class="swal2-input">' +
-        '</div>' +
-        ' <div class="mb-3">' +
-        '<Label>Latitud</label>' +
-        '<input type="number" id="swal-input1" class="swal2-input">' +
-        '</div>' +
-        ' <div class="mb-3">' +
-        '<Label>Longitud</label>' +
-        '<input type="number" id="swal-input2" class="swal2-input">' +
-        '</div>' +
-        ' <div class="mb-3">' +
-        '<Label>Planas</label>' +
-        '<input id="swal-input2_radio2" type="radio" name="coordenadas" class="swal2-input">' +
-        '</div>' +
-        ' <div class="mb-3">' +
-        '<Label>X</label>' +
-        '<input type="number" id="swal-input3" class="swal2-input">' +
-        '</div>' +
-        ' <div class="mb-3">' +
-        '<Label>Y</label>' +
-        '<input type="number" id="swal-input4" class="swal2-input">' +
-        '</div>',
+      html:`
+         <div class="fila-flex">
+            <Label target="tittle">Geometricas
+               <input id="swal-input_radio1" checked="checked" type="radio" name="coordenadas" class="swal2-input">
+            </label>
+         </div>
+         <div class="fila-flex">
+            <Label>Latitud</label>
+            <input type="number" id="swal-input1" class="swal2-input" onkeydown="javascript: changeSelection('#swal-input_radio1')" />
+         </div>
+         <div class="fila-flex">
+            <Label>Longitud</label>
+            <input type="number" id="swal-input2" class="swal2-input" onkeydown="javascript: changeSelection('#swal-input_radio1')" />
+         </div>
+         <div class="fila-flex">
+            <Label target="tittle">Planas     
+               <input id="swal-input2_radio2" type="radio" name="coordenadas" class="swal2-input">
+            </label>
+         </div>
+         <div class="fila-flex">
+            <Label>X</label>
+            <input type="number" id="swal-input3" class="swal2-input" onkeydown="javascript: changeSelection('#swal-input2_radio2')" />
+         </div>
+         <div class="fila-flex">
+            <Label>Y</label>
+            <input type="number" id="swal-input4" class="swal2-input" onkeydown="javascript: changeSelection('#swal-input2_radio2')" />
+         </div>`,
       focusConfirm: true,
       preConfirm: () => {
 
@@ -128,22 +130,22 @@ $modal_mapa_base.addEventListener('click', async () => {
       showCancelButton: true,
       cancelButtonText: 'Cerrar',
       html:
-         ' <div class="mb-3">' +
-         '<Label>Nombre</label>' +
-         '<input id="swal-input1" class="swal2-input">' +
-         '</div>' +
-         ' <div class="mb-3">' +
-         '<Label>Ruta</label>' +
-         '<input id="swal-input2" class="swal2-input">' +
-         '</div>' +
-         ' <div class="mb-3">' +
-         '<Label>Z Mínimo</label>' +
-         '<input type="number" id="swal-input3" class="swal2-input">' +
-         '</div>' +
-         ' <div class="mb-3">' +
-         '<Label>Z Máximo</label>' +
-         '<input type="number" id="swal-input4" class="swal2-input">' +
-         '</div>',
+         `<div class="fila-flex">
+            <Label>Nombre</label>
+            <input id="swal-input1" class="swal2-input">
+         </div>
+         <div class="fila-flex">
+            <Label>Ruta</label>
+         <input id="swal-input2" class="swal2-input">
+         </div>
+         <div class="fila-flex">
+            <Label>Z Mínimo</label>
+            <input type="number" id="swal-input3" class="swal2-input">
+         </div>
+         <div class="fila-flex">
+            <Label>Z Máximo</label>
+            <input type="number" id="swal-input4" class="swal2-input">
+         </div>`,
       focusConfirm: true,
       preConfirm: () => {
          let json = {
@@ -279,3 +281,13 @@ const EnviarDatosBusqueda = async () => {
    await ConsultarLATLON(entidad, codigo, tipocodigo);
 }
 
+
+const changeSelection = (element) => {
+   const radio_button = document.querySelector(element);  
+
+   if (radio_button.checked) {
+      return;
+   } else {
+      radio_button.checked = true;
+   }
+}

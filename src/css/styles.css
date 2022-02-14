@@ -1,0 +1,33 @@
+/* estilos swit alerts */
+.fila-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.fila-flex > label {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.fila-flex > label[target=tittle] {
+    min-width: 150px;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.swal2-input{
+    height: 2em;
+    margin: 0.3em 1em;
+}
