@@ -101,8 +101,13 @@ function switchEvent(properties) {
         MostrarModal(properties);
         return;
     } else if (properties.hasOwnProperty('fnap')) {
-        // console.log('tramobt');
+        console.log('tramobt');
         container_content.innerHTML = createTableTramobt(properties);
+        return;
+    } else {
+        console.log('no se encontro propiedad');
+        container_content.innerHTML = '';
+        // hidePopUp();
         return;
     }
 

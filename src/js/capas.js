@@ -258,21 +258,21 @@ let source_Clientes = new ol.source.VectorTile({
 
 
 // LAYERS
-let layer_Apoyos = new ol.layer.VectorTile({
-    name: 'apoyos',
-    source: source_Apoyos,
-    minZoom: 17,
-    maxZoom: 20,
-    style: style_apoyos,
-});
+// let layer_Apoyos = new ol.layer.VectorTile({
+//     name: 'apoyos',
+//     source: source_Apoyos,
+//     minZoom: 17,
+//     maxZoom: 20,
+//     style: style_apoyos,
+// });
 
-let layer_clientes = new ol.layer.VectorTile({
-    name: 'clientes',
-    source: source_Clientes,
-    minZoom: 18,
-    maxZoom: 20,
-    style: estilosCliente,  
-});
+// let layer_clientes = new ol.layer.VectorTile({
+//     name: 'clientes',
+//     source: source_Clientes,
+//     minZoom: 18,
+//     maxZoom: 20,
+//     style: estilosCliente,  
+// });
 
 // const mapaBase = new ol.layer.Tile({
 //   source: new ol.source.OSM()

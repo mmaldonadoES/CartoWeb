@@ -14,6 +14,7 @@ const loadCapAbilities = async () => {
 const paintCapAbilities = async (vector_layers) => {
   
   let layers = [];
+  
 
 
   for (i = 0; i < vector_layers.length; i++) {
