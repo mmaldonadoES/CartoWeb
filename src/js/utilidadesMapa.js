@@ -46,26 +46,28 @@ function BuscarApoyoCartografia() {
 
         let lon = document.getElementById('swal-input2').value;
         let lat = document.getElementById('swal-input1').value;
-        if (document.getElementById("swal-input_radio1").checked) {
-          if ((lat > 0 && lat < 13) && (lon < -66 && lon > -79)) {
-              UbicarEnMapa(lat, lon);
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              title: 'Fuera de rango',
-              text: 'Las coordenadas que intenta ingresar estan fuera de Colombia, por lo tanto no es posible ubicarlas.'
-            });
-          }
- 
-        } else {
-          let x = document.getElementById('swal-input3').value;
-          let y = document.getElementById('swal-input4').value;
-          UbicarEnMapaXY(x, y);
-        }
+         if (document.getElementById("swal-input_radio1").checked) {
+            if ((lat > 0 && lat < 13) && (lon < -66 && lon > -79)) {
+               UbicarEnMapa(lat, lon);
+            } else {
+               Swal.showValidationMessage(
+                  'Las coordenadas que intenta ingresar estan fuera de Colombia, por lo tanto no es posible ubicarlas.'
+               );
 
+            }
+ 
+         } else {
+            let x = document.getElementById('swal-input3').value;
+            let y = document.getElementById('swal-input4').value;
+            try {
+               UbicarEnMapaXY(x, y);
+            }
+            catch (error) {
+               Swal.showValidationMessage(`${error}`)
+            }
+         }
       }
     });
-
   });
 };
 
@@ -84,23 +86,35 @@ function UbicarEnMapa(lat, lon) {
 
 
 function UbicarEnMapaXY(x, y) {
-  proj4.defs("EPSG:3116","+proj=tmerc +lat_0=4.596200416666666 +lon_0=-74.07750791666666 +k=1 +x_0=1000000 +y_0=1000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
-  ol.proj.proj4.register(proj4);
+   proj4.defs("EPSG:3116","+proj=tmerc +lat_0=4.596200416666666 +lon_0=-74.07750791666666 +k=1 +x_0=1000000 +y_0=1000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+   ol.proj.proj4.register(proj4);
 
-  let MagnaSirgas = ol.proj.get('EPSG:3116');
-  // let XY = ol.proj.get('EPSG:4326');
+   let MagnaSirgas = ol.proj.get('EPSG:3116');
+   // let XY = ol.proj.get('EPSG:4326');
 
-  let x_c = parseFloat(x);
-  let y_c = parseFloat(y);
+   let x_c = parseFloat(x);
+   let y_c = parseFloat(y);
+
+
+
+   let coordinates = ol.proj.transform([x_c,y_c], MagnaSirgas, 'EPSG:4326');
+   if ((coordinates[1] > 0 && coordinates[1] < 13) && (coordinates[0] < -66 && coordinates[0] > -79)) {
+      let coord_proj = ol.proj.fromLonLat(coordinates);
+      
+      const view = map.getView();
+      view.animate({
+         center: coord_proj,
+         duration: 2000,
+      });
+
+      pulse(coord_proj)
+
+      
+   } else {
+      throw new Error('Las coordenadas que intenta ingresar estan fuera de Colombia, por lo tanto no es posible ubicarlas.') ;
+   }
 
   
-  
-  let lugar2 = ol.proj.fromLonLat(ol.proj.transform([x_c,y_c], MagnaSirgas, 'EPSG:4326'));
-  map.getView().setCenter(lugar2);
-  // map.getView().setZoom(16);
-
-  pulse(ol.proj.transform([x_c,y_c], MagnaSirgas, 'EPSG:4326'))
-
 }
 
 

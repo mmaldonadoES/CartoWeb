@@ -266,6 +266,8 @@
             window.onload = () => { 
                 loadCapAbilities();
                 // map.addLayer(grupo_capas);
+                const admin_capas = document.querySelector('#map > div > div.ol-overlaycontainer-stopevent > div.ol-layerswitcher.ol-unselectable.ol-control.ol-collapsed > button');
+                admin_capas.setAttribute('title','Administrador de Capas');    
             };
         </script>
 
