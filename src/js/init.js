@@ -39,6 +39,9 @@ const paintCapAbilities = async (vector_layers) => {
       case 'clientes':
           style_layer = estilosCliente;
           break;          
+      case 'acometidas':
+            style_layer = estiloAcometida;
+          break;      
     }
 
     if(id !== 'departamento'){

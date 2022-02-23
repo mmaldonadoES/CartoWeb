@@ -242,6 +242,14 @@ const estilosCliente = (feature) => {
     return estilo;
 };
 
+let estiloAcometida = new ol.style.Style({
+    stroke: new ol.style.Stroke({
+        width: 1,
+        color : 'gray'
+    })
+});
+
+
 // CAPAS
 // ---------------------------------------------------------------------------------------------------------------------
 // SOURCES
